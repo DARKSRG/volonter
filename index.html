@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Волонтёры — Городской фестиваль «Огни города»</title>
+<style>
+  :root {
+    --primary: #2a6df4;
+    --primary-dark: #1d4fbf;
+    --accent: #ffb703;
+    --dark: #1a1d29;
+    --gray: #6b7280;
+    --light: #f4f7ff;
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--dark);
+    background: #fff;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: min(1140px, 92%);
+    margin: 0 auto;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    z-index: 100;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-mark {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgba(42,109,244,0.35);
+  }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color .2s;
+  }
+
+  nav a:hover { color: var(--primary); }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, background .2s;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(42,109,244,0.35);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.8);
+    color: #fff;
+  }
+
+  .btn-outline:hover {
+    background: #fff;
+    color: var(--dark);
+  }
+
+  .header-cta { padding: 10px 22px; }
+
+  .burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--dark);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 150px 0 100px;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(124,58,237,0.25), transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(42,109,244,0.22), transparent 60%),
+      linear-gradient(160deg, #0f1220 0%, #1a1d29 55%, #262a3d 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: #fff;
+    clip-path: polygon(0 100%, 100% 100%, 100% 40%, 0 0);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,183,3,0.15);
+    border: 1px solid rgba(255,183,3,0.4);
+    color: var(--accent);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 22px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--accent), #ffd166);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p.lead {
+    font-size: 1.12rem;
+    color: #b8bfd4;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 44px;
+    flex-wrap: wrap;
+  }
+
+  .stat .num {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .stat .num em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .stat .lbl {
+    font-size: 0.85rem;
+    color: #8b93ab;
+  }
+
+  /* Карточка-иллюстрация */
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 24px;
+    padding: 34px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  }
+
+  .hero-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .role-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.95rem;
+    color: #dfe4f2;
+  }
+
+  .role-item:last-child { border-bottom: none; }
+
+  .role-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(42,109,244,0.25);
+    display: grid;
+    place-items: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+
+  .role-item small {
+    display: block;
+    color: #8b93ab;
+    font-size: 0.8rem;
+  }
+
+  /* ===== SECTIONS COMMON ===== */
+  section { padding: 90px 0; }
+
+  .section-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+
+  .eyebrow {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .section-head p {
+    color: var(--gray);
+    font-size: 1.02rem;
+  }
+
+  /* ===== ABOUT / BENEFITS ===== */
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .benefit {
+    background: var(--light);
+    border: 1px solid #e4eaf8;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  .benefit:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(42,109,244,0.12);
+  }
+
+  .benefit .b-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(42,109,244,0.3);
+  }
+
+  .benefit h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .benefit p {
+    color: var(--gray);
+    font-size: 0.93rem;
+  }
+
+  /* ===== ROLES ===== */
+  .roles-section {
+    background: var(--light);
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .role-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 30px;
+    border: 1px solid #e4eaf8;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  .role-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.09);
+  }
+
+  .role-card .tag {
+    align-self: flex-start;
+    background: rgba(42,109,244,0.1);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .role-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .role-card p {
+    color: var(--gray);
+    font-size: 0.93rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .role-card .meta {
+    display: flex;
+    gap: 18px;
+    font-size: 0.85rem;
+    color: var(--gray);
+    border-top: 1px solid #eef1f8;
+    padding-top: 16px;
+  }
+
+  .role-card .meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ===== STEPS ===== */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    padding: 32px 26px;
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid #e4eaf8;
+    counter-increment: step;
+  }
+
+  .step::before {
+    content: "0" counter(step);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: rgba(42,109,244,0.15);
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .step h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    color: var(--gray);
+    font-size: 0.9rem;
+  }
+
+  /* ===== FORM ===== */
+  .form-section {
+    background:
+      radial-gradient(ellipse at 10% 10%, rgba(124,58,237,0.22), transparent 55%),
+      linear-gradient(160deg, #0f1220, #1a1d29 60%, #232739);
+    color: #fff;
+  }
+
+  .form-wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .form-info h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+
+  .form-info p {
+    color: #b8bfd4;
+    margin-bottom: 28px;
+  }
+
+  .form-info ul {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+  }
+
+  .form-info li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #dfe4f2;
+    font-size: 0.95rem;
+  }
+
+  .check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.18);
+    color: #22c55e;
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  form.volunteer-form {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 22px;
+    padding: 36px;
+    backdrop-filter: blur(8px);
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #dfe4f2;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 11px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color .2s, background .2s;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #8b93ab;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(42,109,244,0.12);
+  }
+
+  .field select option { color: var(--dark); }
+
+  .field textarea { resize: vertical; min-height: 90px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .checkbox-field {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    font-size: 0.84rem;
+    color: #b8bfd4;
+    margin: 20px 0 24px;
+  }
+
+  .checkbox-field input {
+    width: 18px; height: 18px;
+    margin-top: 2px;
+    accent-color: var(--primary);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .checkbox-field a { color: #7fa8ff; }
+
+  form .btn-primary {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .form-success .big-check {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    margin: 0 auto 20px;
+  }
+
+  .form-success h3 { margin-bottom: 10px; }
+  .form-success p { color: #b8bfd4; font-size: 0.95rem; }
+
+  /* ===== FAQ ===== */
+  .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+  }
+
+  details {
+    background: var(--light);
+    border: 1px solid #e4eaf8;
+    border-radius: 14px;
+    padding: 20px 26px;
+    transition: box-shadow .2s;
+  }
+
+  details[open] {
+    box-shadow: 0 10px 30px rgba(42,109,244,0.1);
+  }
+
+  summary {
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    color: var(--primary);
+    transition: transform .25s;
+    flex-shrink: 0;
+  }
+
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  details p {
+    margin-top: 14px;
+    color: var(--gray);
+    font-size: 0.93rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: #8b93ab;
+    padding: 50px 0 30px;
+    font-size: 0.9rem;
+  }
+
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  footer .logo { color: #fff; margin-bottom: 14px; }
+
+  footer a {
+    color: #b8bfd4;
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  footer a:hover { color: #fff; }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.83rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-grid,
+    .form-wrap { grid-template-columns: 1fr; }
+
+    .hero { padding-top: 120px; }
+
+    .hero-card { max-width: 480px; }
+  }
+
+  @media (max-width: 720px) {
+    nav ul { display: none; }
+    nav ul.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px; left: 0; right: 0;
+      background: #fff;
+      padding: 24px;
+      gap: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+    .burger { display: block; }
+    .header-cta { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+    section { padding: 64px 0; }
+    form.volunteer-form { padding: 26px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container nav">
+    <a href="#" class="logo" style="text-decoration:none; color:inherit;">
+      <span class="logo-mark">✦</span>
+      Огни города
+    </a>
+    <nav>
+      <ul id="menu">
+        <li><a href="#about">О фестивале</a></li>
+        <li><a href="#roles">Роли</a></li>
+        <li><a href="#how">Как это работает</a></li>
+        <li><a href="#faq">Вопросы</a></li>
+      </ul>
+    </nav>
+    <a href="#join" class="btn btn-primary header-cta">Стать волонтёром</a>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge"><span class="dot"></span> Набор открыт до 20 августа</div>
+      <h1>Стань частью <span>главного события</span> города</h1>
+      <p class="lead">
+        Городской фестиваль «Огни города» ищет 200 волонтёров. Помоги сделать праздник
+        ярким — получи опыт, новых друзей и официальный сертификат.
+      </p>
+      <div class="hero-actions">
+        <a href="#join" class="btn btn-primary">Подать заявку</a>
+        <a href="#roles" class="btn btn-outline">Посмотреть роли</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="num"><em>200</em></div>
+          <div class="lbl">волонтёров нужно</div>
+        </div>
+        <div class="stat">
+          <div class="num">3 дня</div>
+          <div class="lbl">фестиваля</div>
+        </div>
+        <div class="stat">
+          <div class="num">5 000+</div>
+          <div class="lbl">гостей ожидается</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>🎯 Открытые направления</h3>
+      <div class="role-item">
+        <div class="role-icon">🎪</div>
+        <div>Помощь на площадках <small>Сопровождение зон и активностей</small></div>
+      </div>
+      <div class="role-item">
+        <div class="role-icon">🧭</div>
+        <div>Навигация гостей <small>Информация и ориентирование</small></div>
+      </div>
+      <div class="role-item">
+        <div class="role-icon">📸</div>
+        <div>Медиа и контент <small>Фото, видео, соцсети</small></div>
+      </div>
+      <div class="role-item">
+        <div class="role-icon">🛠</div>
+        <div>Логистика и монтаж <small>Подготовка и демонтаж</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT / BENEFITS ===== -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Почему стоит участвовать</span>
+      <h2>Волонтёрство, которое запомнится</h2>
+      <p>Мы создаём условия, в которых помогать приятно и полезно для тебя самого.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="b-icon">🎓</div>
+        <h3>Официальный сертификат</h3>
+        <p>Подтверждение участия, которое пригодится в учёбе и резюме.</p>
+      </div>
+      <div class="benefit">
+        <div class="b-icon">🤝</div>
+        <h3>Новые знакомства</h3>
+        <p>Команда из 200 активных людей, общие интересы и друзья после фестиваля.</p>
+      </div>
+      <div class="benefit">
+        <div class="b-icon">🍔</div>
+        <h3>Питание и экипировка</h3>
+        <p>Фирменная футболка, бейдж, горячие обеды и вода на сменах.</p>
+      </div>
+      <div class="benefit">
+        <div class="b-icon">🚀</div>
+        <h3>Опыт и прокачка</h3>
+        <p>Обучение до старта, работа в команде и реальные навыки организации.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROLES ===== -->
+<section id="roles" class="roles-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Направления</span>
+      <h2>Выбери свою роль</h2>
+      <p>Опыт не обязателен — всему научим на вводном брифинге.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <span class="tag">Площадки</span>
+        <h3>Помощник площадки</h3>
+        <p>Помогает ведущим, следит за реквизитом и порядком в зоне активности.</p>
+        <div class="meta">
+          <span>🕒 Смена 4 ч</span>
+          <span>📍 Центр города</span>
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="tag">Навигация</span>
+        <h3>Гид-навигатор</h3>
+        <p>Встречает гостей, подсказывает маршруты и отвечает на вопросы.</p>
+        <div class="meta">
+          <span>🕒 Смена 4 ч</span>
+          <span>📍 Входные группы</span>
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="tag">Медиа</span>
+        <h3>Медиаволонтёр</h3>
+        <p>Снимает фото и видео, готовит контент для соцсетей фестиваля.</p>
+        <div class="meta">
+          <span>🕒 Смена 5 ч</span>
+          <span>📍 Вся территория</span>
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="tag">Логистика</span>
+        <h3>Логист</h3>
+        <p>Помогает с монтажом, доставкой реквизита и организацией зон.</p>
+        <div class="meta">
+          <span>🕒 Смена 6 ч</span>
+          <span>📍 За кулисами</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEPS ===== -->
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Как это работает</span>
+      <h2>Четыре шага до фестиваля</h2>
+      <p>От заявки до первого дня — просто и понятно.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Заполни заявку</h3>
+        <p>Расскажи о себе и выбери удобное направление и смены.</p>
+      </div>
+      <div class="step">
+        <h3>Пройди отбор</h3>
+        <p>Мы свяжемся в течение 3 дней и пригласим на короткое собеседование.</p>
+      </div>
+      <div class="step">
+        <h3>Посети обучение</h3>
+        <p>Онлайн-брифинг и очная встреча команды перед фестивалем.</p>
+      </div>
+      <div class="step">
+        <h3>Выходи на смену</h3>
+        <p>Получай экипировку, помогай гостям и наслаждайся атмосферой.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORM ===== -->
+<section id="join" class="form-section">
+  <div class="container form-wrap">
+    <div class="form-info">
+      <span class="eyebrow" style="color:var(--accent);">Присоединяйся</span>
+      <h2>Заявка волонтёра</h2>
+      <p>Заполни форму — это займёт около двух минут. Мы ответим каждому.</p>
+      <ul>
+        <li><span class="check">✓</span> Возраст от 16 лет</li>
+        <li><span class="check">✓</span> Готовность к 1–2 сменам</li>
+        <li><span class="check">✓</span> Желание помочь и хорошее настроение</li>
+        <li><span class="check">✓</span> Опыт не требуется</li>
+      </ul>
+    </div>
+
+    <form class="volunteer-form" id="volunteerForm" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Имя и фамилия *</label>
+          <input type="text" id="name" name="name" placeholder="Анна Иванова" required>
+        </div>
+        <div class="field">
+          <label for="age">Возраст *</label>
+          <input type="number" id="age" name="age" placeholder="18" min="16" max="99" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="phone">Телефон *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+7 (900) 000-00-00" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="role">Направление</label>
+        <select id="role" name="role">
+          <option value="">Выбери роль</option>
+          <option>Помощник площадки</option>
+          <option>Гид-навигатор</option>
+          <option>Медиаволонтёр</option>
+          <option>Логист</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Комментарий (необязательно)</label>
+        <textarea id="message" name="message" placeholder="Опыт, удобные смены, особые навыки..."></textarea>
+      </div>
+
+      <label class="checkbox-field">
+        <input type="checkbox" id="agree" required>
+        <span>Я согласен(на) с <a href="#">политикой обработки персональных данных</a> и правилами участия *</span>
+      </label>
+
+      <button type="submit" class="btn btn-primary">Отправить заявку</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="big-check">✓</div>
+      <h3>Заявка отправлена!</h3>
+      <p>Спасибо! Мы свяжемся с тобой в течение 3 дней на указанный e-mail или телефон.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>С какого возраста можно участвовать?</summary>
+        <p>С 16 лет. Для участников младше 18 лет потребуется согласие законного представителя — форму пришлём после отбора.</p>
+      </details>
+      <details>
+        <summary>Нужен ли опыт волонтёрства?</summary>
+        <p>Нет. Перед фестивалем мы проводим обучение, где рассказываем всё необходимое для выбранной роли.</p>
+      </details>
+      <details>
+        <summary>Сколько времени нужно будет уделить?</summary>
+        <p>Обычно 1–2 смены по 4–6 часов в течение трёх фестивальных дней. Точный график согласуем заранее.</p>
+      </details>
+      <details>
+        <summary>Что получают волонтёры?</summary>
+        <p>Фирменную экипировку, питание на сменах, официальный сертификат, пригласительные на концерты и мерч фестиваля.</p>
+      </details>
+      <details>
+        <summary>Можно ли участвовать с другом?</summary>
+        <p>Да, укажите это в комментарии к заявке — постараемся поставить вас в одну команду и на одни смены.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="logo" style="text-decoration:none;">
+          <span class="logo-mark">✦</span>
+          Огни города
+        </a>
+        <p>Городской фестиваль · 12–14 сентября</p>
+        <p>Волонтёрский штаб: <a href="mailto:volunteer@ogni.city">volunteer@ogni.city</a></p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">О фестивале</a>
+        <a href="#roles">Роли</a>
+        <a href="#how">Как это работает</a>
+        <a href="#faq">Вопросы</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Фестиваль «Огни города». Все права защищены.</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Мобильное меню
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  burger.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => menu.classList.remove('open'))
+  );
+
+  // Отправка формы
+  const form = document.getElementById('volunteerForm');
+  const success = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const required = ['name', 'age', 'email', 'phone'];
+    let valid = true;
+
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderColor = '';
+      if (!el.value.trim()) {
+        el.style.borderColor = '#ef4444';
+        valid = false;
+      }
+    });
+
+    if (!document.getElementById('agree').checked) {
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    form.style.display = 'none';
+    success.style.display = 'block';
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>
